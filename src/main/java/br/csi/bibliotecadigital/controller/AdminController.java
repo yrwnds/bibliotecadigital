@@ -2,13 +2,26 @@ package br.csi.bibliotecadigital.controller;
 
 
 import br.csi.bibliotecadigital.model.administrador.Administrador;
+import br.csi.bibliotecadigital.model.usuario.Usuario;
 import br.csi.bibliotecadigital.service.AdminService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admins")
+@Tag(name = "Admins", description = "Path relacionado a operações de administradores.")
 public class AdminController {
     private AdminService adminService;
 
@@ -22,6 +35,13 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Buscar admin por ID", description = "Retorna um admin correspondente ao ID fornecido.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Admin encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Usuario.class))),
+            @ApiResponse(responseCode = "404", description = "Admin não encontrado", content = @Content)
+    })
     public Administrador administrador(@PathVariable long id){
         return this.adminService.buscarPorId(id);
     }
@@ -32,18 +52,30 @@ public class AdminController {
     }
 
     @PostMapping()
-    public void salvar(@RequestBody Administrador administrador){
+    @Transactional
+    @Operation(summary = "Criar um novo admin", description = "Cria um novo admin e o adiciona à lista")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Admin criado com sucesso.",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Usuario.class))),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos", content = @Content)
+    })
+    public ResponseEntity salvar(@RequestBody @Valid Administrador administrador, UriComponentsBuilder uriBuilder){
         this.adminService.salvar(administrador);
+        URI uri = uriBuilder.path("/admins/{uuid}").buildAndExpand(administrador.getUuid()).toUri();
+        return ResponseEntity.created(uri).body(administrador);
     }
 
     @PutMapping
-    public void atualizar(@RequestBody Administrador administrador){
+    public ResponseEntity atualizar(@RequestBody @Valid Administrador administrador){
         this.adminService.atualizar(administrador);
+        return ResponseEntity.ok(administrador);
     }
 
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable long id){
+    public ResponseEntity remover(@PathVariable long id){
         this.adminService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/uuid/{uuid}")
@@ -52,7 +84,7 @@ public class AdminController {
     }
 
     @PutMapping("/uuid")
-    public void atualizarUuid(@RequestBody Administrador administrador){
+    public void atualizarUuid(@RequestBody @Valid Administrador administrador){
         this.adminService.atualizar(administrador);
     }
 }

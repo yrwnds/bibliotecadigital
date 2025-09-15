@@ -3,6 +3,7 @@ package br.csi.bibliotecadigital.model.emprestimo;
 import br.csi.bibliotecadigital.model.livro.Livro;
 import br.csi.bibliotecadigital.model.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -28,19 +29,24 @@ public class Emprestimo {
     @ManyToOne
     @JoinColumn(name = "isbn_id")
     @NonNull
+    @NotBlank
     private Livro ISBN;
 
     @ManyToOne
     @JoinColumn(name = "usu_id_id")
     @NonNull
+    @NotBlank
     private Usuario usu_id;
 
     @NonNull
+    @NotBlank
     private Timestamp datapego;
 
     @NonNull
+    @NotBlank
     private Timestamp dataprazo;
 
     @NonNull
+    @NotBlank
     private String status;
 }

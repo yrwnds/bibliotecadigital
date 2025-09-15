@@ -1,6 +1,7 @@
 package br.csi.bibliotecadigital.model.categoria;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -23,6 +24,7 @@ public class Categoria {
     private long id;
 
     @NonNull
+    @NotBlank
     private String nome;
 
 }
