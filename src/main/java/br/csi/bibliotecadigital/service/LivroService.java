@@ -24,7 +24,7 @@ public class LivroService {
     }
 
     public Livro buscarPorId(Long id) {
-        return this.repository.findById(id).get();
+        return this.repository.findById(id).orElseThrow();
     }
 
     public void excluir(Long id) {
@@ -32,7 +32,7 @@ public class LivroService {
     }
 
     public void atualizar(Livro livro) {
-        Livro l = this.repository.getReferenceById(livro.getId());
+        Livro l = this.repository.getReferenceById(livro.getIsbn());
         l.setTitulo(livro.getTitulo());
         l.setAutor(livro.getAutor());
         l.setAnopublicado(livro.getAnopublicado());

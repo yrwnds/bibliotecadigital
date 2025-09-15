@@ -40,7 +40,7 @@ public class EmprestimoController {
             @ApiResponse(responseCode = "200", description = "Empréstimo encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "404", description = "Empréstimo não encontrado", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Empréstimo não encontrado", content = @Content)
     })
     public Emprestimo emprestimo(@PathVariable long id){
         return this.emprestimoService.buscarPorId(id);

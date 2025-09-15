@@ -41,7 +41,7 @@ public class LivroController {
             @ApiResponse(responseCode = "200", description = "Livro encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "404", description = "Livro não encontrado", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Livro não encontrado", content = @Content)
     })
     public Livro livro(@PathVariable long id){
         return this.livroService.buscarPorId(id);

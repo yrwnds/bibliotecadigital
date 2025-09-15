@@ -2,6 +2,7 @@ package br.csi.bibliotecadigital.model.emprestimo;
 
 import br.csi.bibliotecadigital.model.livro.Livro;
 import br.csi.bibliotecadigital.model.usuario.Usuario;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -17,36 +18,34 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Schema(description = "Entidade que representa um empréstimo da biblioteca digital no sistema.")
 public class Emprestimo {
-
-    @UuidGenerator
-    private UUID uuid;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "isbn_id")
     @NonNull
-    @NotBlank
-    private Livro ISBN;
+    private Livro livro;
+
+    @UuidGenerator
+    private UUID uuid;
 
     @ManyToOne
-    @JoinColumn(name = "usu_id_id")
     @NonNull
-    @NotBlank
-    private Usuario usu_id;
+    private Usuario usuario;
 
     @NonNull
-    @NotBlank
+    @Schema(description = "Data em que o empréstimo foi realizado.", example = "YYYY-MM-DD HH:MM:SS")
     private Timestamp datapego;
 
     @NonNull
-    @NotBlank
+    @Schema(description = "Data de prazo para devolvimento. Tipicamente uma semana após o empréstimo.", example = "YYYY-MM-DD HH:MM:SS")
     private Timestamp dataprazo;
 
     @NonNull
     @NotBlank
+    @Schema(description = "Status do empréstimo: ATIVO/INATIVO", example = "ATIVO")
     private String status;
 }

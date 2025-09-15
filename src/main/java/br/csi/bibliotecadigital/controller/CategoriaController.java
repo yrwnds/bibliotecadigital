@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -39,7 +40,7 @@ public class CategoriaController {
             @ApiResponse(responseCode = "200", description = "Categoria encontrada",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "404", description = "Categoria não encontrada", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Categoria não encontrada", content = @Content)
     })
     public Categoria categoria(@PathVariable long id){
         return this.categoriaService.buscarPorId(id);

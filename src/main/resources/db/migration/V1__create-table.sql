@@ -44,14 +44,14 @@ create table livros
 create table emprestimo
 (
     id         serial      not null primary key,
-    ISBN       int         not null,
+    livro_ISBN int         not null,
     UUID       UUID DEFAULT gen_random_uuid(),
     usuario_id int         not null,
     datapego   timestamptz not null,
     dataprazo  timestamptz not null,
     status     varchar(10) not null, /* ATIVO, DEVOLVIDO */
 
-    foreign key (ISBN) references livros (ISBN),
+    foreign key (livro_ISBN) references livros (ISBN),
     foreign key (usuario_id) references usuarios (id)
 );
 
@@ -75,3 +75,6 @@ values ('Romance'),
        ('Velho-Oeste'),
        ('Religião'),
        ('Ação');
+
+insert into livros (titulo, autor, anopublicado, categoria_id, linguagem, n_exemplares, n_disponivel)
+values ('Dom Casmurro', 'Machado de Assis', '1899', 8, 'Português', 5, 5)

@@ -34,8 +34,8 @@ public class EmprestimoService {
         Emprestimo e = this.repository.getReferenceById(emprestimo.getId());
         e.setDatapego(emprestimo.getDatapego());
         e.setDataprazo(emprestimo.getDataprazo());
-        e.setISBN(emprestimo.getISBN());
-        e.setUsu_id(emprestimo.getUsu_id());
+        e.setLivro(emprestimo.getLivro());
+        e.setUsuario(emprestimo.getUsuario());
         e.setStatus(emprestimo.getStatus());
         this.repository.save(e);
     }

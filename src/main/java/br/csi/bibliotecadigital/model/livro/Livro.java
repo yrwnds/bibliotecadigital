@@ -1,6 +1,7 @@
 package br.csi.bibliotecadigital.model.livro;
 
 import br.csi.bibliotecadigital.model.categoria.Categoria;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -15,13 +16,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Schema(description = "Entidade que representa um livro da biblioteca digital no sistema.")
 public class Livro {
 
     @UuidGenerator
     private UUID uuid;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long isbn;
 
     @NonNull
     @NotBlank
@@ -30,7 +32,6 @@ public class Livro {
     @NotBlank
     private String autor;
     @NonNull
-    @NotBlank
     private long anopublicado;
 
     @NonNull
@@ -38,15 +39,11 @@ public class Livro {
     private String linguagem;
 
     @NonNull
-    @NotBlank
     private long n_exemplares;
     @NonNull
-    @NotBlank
     private long n_disponivel;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
     @NonNull
-    @NotBlank
     private Categoria categoria;
 }

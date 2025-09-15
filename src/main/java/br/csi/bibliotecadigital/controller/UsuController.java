@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -40,7 +41,7 @@ public class UsuController {
             @ApiResponse(responseCode = "200", description = "Usuario encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "404", description = "Usuário não encontrado", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Usuário não encontrado", content = @Content)
     })
     public Usuario usuario(@Parameter(description = "ID do usuário a ser buscado") @PathVariable long id) {
         return this.usuarioService.buscarPorId(id);
@@ -67,6 +68,7 @@ public class UsuController {
     }
 
     @PutMapping
+    @Operation(summary = "Atualizar um usuário existente", description = "Atualiza um usuário.")
     public ResponseEntity atualizar(@RequestBody @Valid Usuario usuario) {
         this.usuarioService.atualizar(usuario);
         return ResponseEntity.ok(usuario);

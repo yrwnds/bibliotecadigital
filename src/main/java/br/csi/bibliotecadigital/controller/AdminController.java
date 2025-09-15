@@ -40,7 +40,7 @@ public class AdminController {
             @ApiResponse(responseCode = "200", description = "Admin encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "404", description = "Admin não encontrado", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Admin não encontrado", content = @Content)
     })
     public Administrador administrador(@PathVariable long id){
         return this.adminService.buscarPorId(id);

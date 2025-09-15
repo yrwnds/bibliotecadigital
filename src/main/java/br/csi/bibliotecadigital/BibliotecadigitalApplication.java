@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 		info = @Info(
 				title = "API Bibliodigital",
 				version = "1.0",
-				description = "Documentação da API.",
-				contact = @Contact(name = "Leticia", email = "nunes.leticia@acad.ufsm.br")
+				description = "Documentação da API biblioteca digital.",
+				contact = @Contact(name = "Leticia Nunes", email = "nunes.leticia@acad.ufsm.br")
 		)
 )
 

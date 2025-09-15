@@ -23,7 +23,7 @@ public class AdminService {
     }
 
     public Administrador buscarPorId(Long id) {
-        return this.repository.findById(id).get();
+        return this.repository.findById(id).orElseThrow();
     }
 
     public void excluir(Long id) {
