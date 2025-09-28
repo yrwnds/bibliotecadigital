@@ -1,9 +1,18 @@
 package br.csi.bibliotecadigital.service;
 
+import br.csi.bibliotecadigital.model.emprestimo.Emprestimo;
 import br.csi.bibliotecadigital.model.livro.Livro;
 import br.csi.bibliotecadigital.model.livro.LivroRepository;
+import br.csi.bibliotecadigital.model.usuario.Usuario;
+import br.csi.bibliotecadigital.model.usuario.UsuarioRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Null;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,6 +67,26 @@ public class LivroService {
     public Livro getLivroUuid(String uuid) {
         UUID uuidformatado = UUID.fromString(uuid);
         return this.repository.findLivroByUuid(uuidformatado);
+    }
+
+    public List<Livro> getLivroTitulo(String titulo){
+        return this.repository.findLivroByTituloContainingIgnoreCase(titulo);
+    }
+
+    public List<Livro> getLivroAutor(String autor){
+        return this.repository.findLivroByAutorContainingIgnoreCase(autor);
+    }
+
+    public List<Livro> getLivroCategoria(String categoria){
+        return this.repository.findLivroByCategoriaNomeContainingIgnoreCase(categoria);
+    }
+
+    public List<Livro> getLivroLinguagem(String linguagem){
+        return this.repository.findLivroByLinguagemContainingIgnoreCase(linguagem);
+    }
+
+    public List<Livro> getLivroDisponiveis(){
+        return this.repository.findLivroByN_disponivelGreaterThan0();
     }
 
     public void deletarUUID(String uuid) {

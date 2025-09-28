@@ -1,6 +1,7 @@
 package br.csi.bibliotecadigital.controller;
 
 
+import br.csi.bibliotecadigital.model.administrador.Administrador;
 import br.csi.bibliotecadigital.model.usuario.Usuario;
 import br.csi.bibliotecadigital.service.UsuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -45,6 +47,16 @@ public class UsuController {
     })
     public Usuario usuario(@Parameter(description = "ID do usuário a ser buscado") @PathVariable long id) {
         return this.usuarioService.buscarPorId(id);
+    }
+
+    @GetMapping("buscarcredentials/{email}")
+    public Usuario buscarporEmail(@PathVariable @Email String email){
+        return this.usuarioService.buscarPorEmail(email);
+    }
+
+    @GetMapping("buscarcredentials/{email}/{senha}")
+    public Usuario buscarporEmailSenha(@PathVariable @Email String email, @PathVariable String senha){
+        return this.usuarioService.buscarPorEmaileSenha(email, senha);
     }
 
     @PostMapping("/print-json")

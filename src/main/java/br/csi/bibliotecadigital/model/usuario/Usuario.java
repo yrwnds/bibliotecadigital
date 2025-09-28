@@ -42,6 +42,8 @@ public class Usuario {
 
     @NonNull
     @NotBlank
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^\\w\\d\\s:]).{8,}$",
+            message = "Senha deve conter pelo menos 8 caracteres, incluir pelo menos um caractere uppercase, um caractere lowercase, um dígito, e um caracter especial.")
     private String senha;
 
     @NonNull

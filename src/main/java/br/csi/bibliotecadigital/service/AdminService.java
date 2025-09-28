@@ -26,6 +26,14 @@ public class AdminService {
         return this.repository.findById(id).orElseThrow();
     }
 
+    public Administrador buscarPorEmail(String email) {
+        return this.repository.findAdministradorByEmail(email);
+    }
+
+    public Administrador buscarPorEmaileSenha(String email, String senha) {
+        return this.repository.findAdministradorByEmailAndSenha(email, senha);
+    }
+
     public void excluir(Long id) {
         this.repository.deleteById(id);
     }

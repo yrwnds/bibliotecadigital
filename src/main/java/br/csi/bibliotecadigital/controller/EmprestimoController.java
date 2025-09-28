@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -53,18 +54,24 @@ public class EmprestimoController {
 
     @PostMapping()
     @Transactional
-    @Operation(summary = "Criar um novo empréstimo", description = "Cria um novo empréstimo e o adiciona à lista")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Empréstimo criado com sucesso.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos", content = @Content)
-    })
-    public ResponseEntity salvar(@RequestBody @Valid Emprestimo emprestimo, UriComponentsBuilder uriBuilder){
+    public ResponseEntity criardoZero(@RequestBody @Valid Emprestimo emprestimo, UriComponentsBuilder uriBuilder){
         this.emprestimoService.salvar(emprestimo);
         URI uri = uriBuilder.path("/emprestimos/{uuid}").buildAndExpand(emprestimo.getUuid()).toUri();
         return ResponseEntity.created(uri).body(emprestimo);
     }
+
+    @PostMapping("/emprestar/{isbn}/{usuid}")
+    public ResponseEntity<Emprestimo> emprestar(@PathVariable long isbn, @PathVariable long usuid){
+        Emprestimo emprestimo = emprestimoService.pegarLivro(usuid, isbn);
+        return ResponseEntity.ok(emprestimo);
+    }
+
+    @PostMapping("/devolver/{isbn}/{usuid}")
+    public ResponseEntity<Emprestimo> devolver(@PathVariable long isbn, @PathVariable long usuid){
+        Emprestimo emprestimo = emprestimoService.devolverLivro(usuid, isbn);
+        return ResponseEntity.ok(emprestimo);
+    }
+
 
     @PutMapping
     public ResponseEntity atualizar(@RequestBody @Valid Emprestimo emprestimo){

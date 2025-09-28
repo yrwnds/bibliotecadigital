@@ -28,6 +28,10 @@ public class CategoriaService {
         return this.repository.findById(id).get();
     }
 
+    public Categoria buscarPorNome(String nome) {
+        return this.repository.findCategoriaByNome(nome);
+    }
+
     public Categoria getCategoriaUuid(String uuid) {
         UUID uuidformatado = UUID.fromString(uuid);
         return this.repository.findCategoriaByUuid(uuidformatado);

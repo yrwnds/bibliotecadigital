@@ -7,4 +7,7 @@ import java.util.UUID;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public Usuario findUsuarioByUuid(UUID uuid);
     public void deleteUsuarioByUuid(UUID uuid);
+
+    public Usuario findUsuarioByEmail(String email);
+    public Usuario findUsuarioByEmailAndSenha(String email, String senha);
 }

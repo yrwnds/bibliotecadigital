@@ -40,13 +40,12 @@ public class UsuService {
         this.repository.save(u);
     }
 
-    public void atualizarUUID(Usuario usuario){
-        Usuario u = this.repository.findUsuarioByUuid(usuario.getUuid());
-        u.setNome(usuario.getNome());
-        u.setEmail(usuario.getEmail());
-        u.setSenha(usuario.getSenha());
-        u.setMatricula(usuario.getMatricula());
-        this.repository.save(u);
+    public Usuario buscarPorEmail(String email) {
+        return this.repository.findUsuarioByEmail(email);
+    }
+
+    public Usuario buscarPorEmaileSenha(String email, String senha) {
+        return this.repository.findUsuarioByEmailAndSenha(email, senha);
     }
 
     public Usuario getUsuarioUuid(String uuid) {

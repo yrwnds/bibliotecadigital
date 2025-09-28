@@ -47,6 +47,32 @@ public class LivroController {
         return this.livroService.buscarPorId(id);
     }
 
+    @Operation(summary = "Buscar livro por titulo", description = "Busca de livros por título. Para inserir espaços, usar '%20'.")
+    @GetMapping("/buscar/titulo/{titulo}")
+    public List<Livro> buscarPorTitulo(@PathVariable String titulo){
+        return this.livroService.getLivroTitulo(titulo);
+    }
+
+    @GetMapping("/buscar/autor/{autor}")
+    public List<Livro> buscarPorAutor(@PathVariable String autor){
+        return this.livroService.getLivroAutor(autor);
+    }
+
+    @GetMapping("/buscar/categoria/{categoria}")
+    public List<Livro> buscarPorCategoria(@PathVariable String categoria){
+        return this.livroService.getLivroCategoria(categoria);
+    }
+
+    @GetMapping("/buscar/lingua/{linguagem}")
+    public List<Livro> buscarPorLinguagem(@PathVariable String linguagem){
+        return this.livroService.getLivroLinguagem(linguagem);
+    }
+
+    @GetMapping("/buscar/disponiveis")
+    public List<Livro> buscarPorDisponiveis(){
+        return this.livroService.getLivroDisponiveis();
+    }
+
     @PostMapping("/print-json")
     public void printJson(@RequestBody String json){
         System.out.println(json);

@@ -6,5 +6,7 @@ import java.util.UUID;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     public Categoria findCategoriaByUuid(UUID uuid);
-    public Categoria deleteCategoriaByUuid(UUID uuid);
+    public void deleteCategoriaByUuid(UUID uuid);
+
+    public Categoria findCategoriaByNome(String nome);
 }

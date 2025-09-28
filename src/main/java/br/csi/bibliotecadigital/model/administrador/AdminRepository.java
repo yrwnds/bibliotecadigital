@@ -6,4 +6,7 @@ import java.util.UUID;
 public interface AdminRepository extends JpaRepository<Administrador, Long> {
     public Administrador findAdministradorByUuid(UUID uuid);
     public void deleteAdministradorByUuid(UUID uuid);
+
+    public Administrador findAdministradorByEmail(String email);
+    public Administrador findAdministradorByEmailAndSenha(String email, String senha);
 }

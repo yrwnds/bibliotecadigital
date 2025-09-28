@@ -46,6 +46,11 @@ public class CategoriaController {
         return this.categoriaService.buscarPorId(id);
     }
 
+    @GetMapping("/buscar/{nome}")
+    public Categoria buscarNome(@PathVariable String nome){
+        return this.categoriaService.buscarPorNome(nome);
+    }
+
     @PostMapping("/print-json")
     public void printJson(@RequestBody String json){
         System.out.println(json);

@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -44,6 +45,16 @@ public class AdminController {
     })
     public Administrador administrador(@PathVariable long id){
         return this.adminService.buscarPorId(id);
+    }
+
+    @GetMapping("/{email}")
+    public Administrador buscarporEmail(@PathVariable @Email String email){
+        return this.adminService.buscarPorEmail(email);
+    }
+
+    @GetMapping("/{email}/{senha}")
+    public Administrador buscarporEmailSenha(@PathVariable @Email String email, @PathVariable String senha){
+        return this.adminService.buscarPorEmaileSenha(email, senha);
     }
 
     @PostMapping("/print-json")
