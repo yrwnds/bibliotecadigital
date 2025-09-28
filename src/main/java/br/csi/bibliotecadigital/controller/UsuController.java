@@ -42,9 +42,9 @@ public class UsuController {
         return this.usuarioService.buscarPorEmail(email);
     }
 
-    @GetMapping("buscarcredentials/{email}/{senha}")
-    public Usuario buscarporEmailSenha(@PathVariable @Email String email, @PathVariable String senha){
-        return this.usuarioService.buscarPorEmaileSenha(email, senha);
+    @GetMapping("buscarcredentials/{matricula}/{senha}")
+    public Usuario buscarporEmailSenha(@PathVariable String matricula, @PathVariable String senha){
+        return this.usuarioService.buscarPorMateSenha(matricula, senha);
     }
 
     @PostMapping("/print-json")

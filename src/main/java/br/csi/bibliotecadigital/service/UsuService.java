@@ -46,8 +46,8 @@ public class UsuService {
         return this.repository.findUsuarioByEmail(email);
     }
 
-    public Usuario buscarPorEmaileSenha(String email, String senha) {
-        return this.repository.findUsuarioByEmailAndSenha(email, senha);
+    public Usuario buscarPorMateSenha(String matricula, String senha) {
+        return this.repository.findUsuarioByMatriculaAndSenha(matricula, senha);
     }
 
     public Usuario getUsuarioUuid(String uuid) {
