@@ -1,18 +1,11 @@
 package br.csi.bibliotecadigital.service;
 
-import br.csi.bibliotecadigital.model.emprestimo.Emprestimo;
 import br.csi.bibliotecadigital.model.livro.Livro;
 import br.csi.bibliotecadigital.model.livro.LivroRepository;
-import br.csi.bibliotecadigital.model.usuario.Usuario;
-import br.csi.bibliotecadigital.model.usuario.UsuarioRepository;
-import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.Null;
+
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.UUID;
 

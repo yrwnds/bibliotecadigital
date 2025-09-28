@@ -2,13 +2,8 @@ package br.csi.bibliotecadigital.controller;
 
 
 import br.csi.bibliotecadigital.model.emprestimo.Emprestimo;
-import br.csi.bibliotecadigital.model.usuario.Usuario;
 import br.csi.bibliotecadigital.service.EmprestimoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -37,12 +32,6 @@ public class EmprestimoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar empréstimo por ID", description = "Retorna um empréstimo correspondente ao ID fornecido.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Empréstimo encontrado",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "500", description = "Empréstimo não encontrado", content = @Content)
-    })
     public Emprestimo emprestimo(@PathVariable long id){
         return this.emprestimoService.buscarPorId(id);
     }
@@ -69,6 +58,12 @@ public class EmprestimoController {
     @PostMapping("/devolver/{isbn}/{usuid}")
     public ResponseEntity<Emprestimo> devolver(@PathVariable long isbn, @PathVariable long usuid){
         Emprestimo emprestimo = emprestimoService.devolverLivro(usuid, isbn);
+        return ResponseEntity.ok(emprestimo);
+    }
+
+    @PostMapping("/atualizar/{isbn}/{usuid}")
+    public ResponseEntity<Emprestimo> atualizar(@PathVariable long isbn, @PathVariable long usuid){
+        Emprestimo emprestimo = emprestimoService.atualizarEmprestimo(usuid, isbn);
         return ResponseEntity.ok(emprestimo);
     }
 

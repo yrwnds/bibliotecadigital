@@ -1,0 +1,46 @@
+erDiagram
+    USUARIO ||--|{ EMPRESTIMO : realiza
+    LIVRO ||--|{ EMPRESTIMO : pego
+    LIVRO ||--|{ CATEGORIA : possui
+    ADMINISTRADOR ||--|{ LIVRO : administra
+
+    USUARIO {
+        UUID uuid
+        long id PK
+        string nome
+        string email
+        string senha
+        string matricula
+    }
+    ADMINISTRADOR {
+        UUID uuid
+        long id PK
+        string nome
+        string email
+        string senha
+        string matricula
+    }
+    LIVRO {        UUID uuid
+        long isbn PK
+        string titulo
+        string autor
+        long anopublicado
+        string linguagem
+        long n_exemplares
+        long n_disponivel
+        long categoria_id FK
+    }
+    EMPRESTIMO {
+        UUID uuid
+        long id PK
+        long livro_id FK
+        long usuario_id FK
+        timestamp datapego "YYYY-MM-DD hh:mm:ss"
+        timestamp dataprazo "YYYY-MM-DD hh:mm:ss"
+        string status "ATIVO/INATIVO"
+    }
+    CATEGORIA{
+        UUID uuid
+        long id PK
+        string nome
+    }

@@ -87,7 +87,7 @@ public class EmprestimoService {
 
         List<Emprestimo> checar = this.repository.findAll();
         for(Emprestimo emprestimo : checar){
-            if(emprestimo.getUsuario().equals(usuario)){
+            if(emprestimo.getUsuario().equals(usuario) && emprestimo.getStatus().equals("ATIVO")){
                 throw new RuntimeException("Este usuario ja pegou este livro emprestado.");
             }
         }
@@ -127,5 +127,17 @@ public class EmprestimoService {
         emprestimo.setStatus("INATIVO");
 
         return this.repository.save(emprestimo);
+    }
+
+    @Transactional
+    public Emprestimo atualizarEmprestimo(Long ISBN, Long usuID){
+
+        Emprestimo emprestimo = this.repository.findEmprestimoByLivroIsbnAndUsuarioId(ISBN, usuID);
+
+        LocalDateTime novaDataPrazo = emprestimo.getDataprazo().toLocalDateTime().plusDays(7);;
+
+        emprestimo.setDataprazo(Timestamp.valueOf(novaDataPrazo));
+        return this.repository.save(emprestimo);
+
     }
 }

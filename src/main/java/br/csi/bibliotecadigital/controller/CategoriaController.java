@@ -17,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categorias")
@@ -59,12 +58,6 @@ public class CategoriaController {
     @PostMapping()
     @Transactional
     @Operation(summary = "Criar uma nova categoria", description = "Cria uma nova categoria e a adiciona à lista")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Categoria criada com sucesso.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos", content = @Content)
-    })
     public ResponseEntity salvar(@RequestBody @Valid Categoria categoria, UriComponentsBuilder uriBuilder){
         this.categoriaService.salvar(categoria);
         URI uri = uriBuilder.path("/categorias/{uuid}").buildAndExpand(categoria.getUuid()).toUri();
