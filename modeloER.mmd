@@ -2,7 +2,6 @@ erDiagram
     USUARIO ||--|{ EMPRESTIMO : realiza
     LIVRO ||--|{ EMPRESTIMO : pego
     LIVRO ||--|{ CATEGORIA : possui
-    ADMINISTRADOR ||--|{ LIVRO : administra
 
     USUARIO {
         UUID uuid
@@ -12,14 +11,7 @@ erDiagram
         string senha
         string matricula
         long qt_livros_emprestados "default 0"
-    }
-    ADMINISTRADOR {
-        UUID uuid
-        long id PK
-        string nome
-        string email
-        string senha
-        string matricula
+        string identificador "USER/ADMIN"
     }
     LIVRO {        UUID uuid
         long isbn PK
