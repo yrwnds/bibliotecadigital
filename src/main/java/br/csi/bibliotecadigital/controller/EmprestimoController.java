@@ -51,19 +51,19 @@ public class EmprestimoController {
 
     @PostMapping("/emprestar/{isbn}/{usuid}")
     public ResponseEntity<Emprestimo> emprestar(@PathVariable long isbn, @PathVariable long usuid){
-        Emprestimo emprestimo = emprestimoService.pegarLivro(usuid, isbn);
+        Emprestimo emprestimo = emprestimoService.pegarLivro(isbn, usuid);
         return ResponseEntity.ok(emprestimo);
     }
 
     @PostMapping("/devolver/{isbn}/{usuid}")
     public ResponseEntity<Emprestimo> devolver(@PathVariable long isbn, @PathVariable long usuid){
-        Emprestimo emprestimo = emprestimoService.devolverLivro(usuid, isbn);
+        Emprestimo emprestimo = emprestimoService.devolverLivro(isbn, usuid);
         return ResponseEntity.ok(emprestimo);
     }
 
     @PostMapping("/atualizar/{isbn}/{usuid}")
     public ResponseEntity<Emprestimo> atualizar(@PathVariable long isbn, @PathVariable long usuid){
-        Emprestimo emprestimo = emprestimoService.atualizarEmprestimo(usuid, isbn);
+        Emprestimo emprestimo = emprestimoService.atualizarEmprestimo(isbn, usuid);
         return ResponseEntity.ok(emprestimo);
     }
 
