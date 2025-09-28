@@ -1,12 +1,3 @@
-create table admins
-(
-    UUID      UUID DEFAULT gen_random_uuid(),
-    id        serial       not null primary key,
-    nome      varchar(50)  not null,
-    matricula varchar(8)   not null unique,
-    email     varchar(255) not null unique,
-    senha     varchar(32)  not null
-);
 create table usuarios
 (
     UUID      UUID DEFAULT gen_random_uuid(),

@@ -37,6 +37,8 @@ public class UsuService {
         u.setEmail(usuario.getEmail());
         u.setSenha(usuario.getSenha());
         u.setMatricula(usuario.getMatricula());
+        u.setQt_livros_emprestados(usuario.getQt_livros_emprestados());
+        u.setIdentificador(usuario.getIdentificador());
         this.repository.save(u);
     }
 

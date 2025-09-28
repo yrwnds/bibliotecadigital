@@ -48,4 +48,7 @@ public class Emprestimo {
     @NotBlank
     @Schema(description = "Status do empréstimo: ATIVO/INATIVO", example = "ATIVO")
     private String status;
+
+
+    private int qt_renovacoes;
 }

@@ -9,6 +9,6 @@ Ambos usuários e administradores poderão acessar o acervo digital e suas respe
 
 * Funções disponibilizadas para os **administradores** incluem: Atualizar um livro ou categoria, deletar ou adicionar um livro ou categoria, atualizar um empréstimo, atualizar um cadastro.
 
-Há um número limitado de exemplares disponíveis para cada livro digital. Um usuário poderá ter, no máximo, 3 empréstimos de livro ativos ao mesmo tempo.
+Há um número limitado de exemplares disponíveis para cada livro digital. Um usuário poderá ter, no máximo, três empréstimos de livro ativos ao mesmo tempo.
 
 Quando um empréstimo é realizado, o usuário terá o livro por uma semana. O usuário pode renovar seu empréstimo, adicionando sete dias a sua data de prazo de devolvimento. Há um limite de quatro renovações consecutivas.

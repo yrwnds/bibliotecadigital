@@ -11,6 +11,7 @@ erDiagram
         string email
         string senha
         string matricula
+        long qt_livros_emprestados "default 0"
     }
     ADMINISTRADOR {
         UUID uuid
@@ -38,6 +39,7 @@ erDiagram
         timestamp datapego "YYYY-MM-DD hh:mm:ss"
         timestamp dataprazo "YYYY-MM-DD hh:mm:ss"
         string status "ATIVO/INATIVO"
+        long qt_renovacoes "default 0"
     }
     CATEGORIA{
         UUID uuid

@@ -35,12 +35,6 @@ public class CategoriaController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar categoria por ID", description = "Retorna uma categoria correspondente ao ID fornecido.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Categoria encontrada",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Usuario.class))),
-            @ApiResponse(responseCode = "500", description = "Categoria não encontrada", content = @Content)
-    })
     public Categoria categoria(@PathVariable long id){
         return this.categoriaService.buscarPorId(id);
     }

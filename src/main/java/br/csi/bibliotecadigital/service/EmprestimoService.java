@@ -68,6 +68,7 @@ public class EmprestimoService {
         e.setLivro(emprestimo.getLivro());
         e.setUsuario(emprestimo.getUsuario());
         e.setStatus(emprestimo.getStatus());
+        e.setQt_renovacoes(emprestimo.getQt_renovacoes());
         this.repository.save(e);
     }
 
@@ -85,6 +86,10 @@ public class EmprestimoService {
             throw new RuntimeException("Livro nao esta disponivel para pegar emprestado.");
         }
 
+        if(usuario.getQt_livros_emprestados()==3){
+            throw new RuntimeException("Usuário atingiu limite de empréstimos.");
+        }
+
         List<Emprestimo> checar = this.repository.findAll();
         for(Emprestimo emprestimo : checar){
             if(emprestimo.getUsuario().equals(usuario) && emprestimo.getStatus().equals("ATIVO")){
@@ -93,6 +98,7 @@ public class EmprestimoService {
         }
 
         livro.setN_disponivel(livro.getN_disponivel()-1);
+        usuario.setQt_livros_emprestados(usuario.getQt_livros_emprestados()+1);
 
         this.livroService.atualizar(livro);
 
@@ -134,8 +140,12 @@ public class EmprestimoService {
 
         Emprestimo emprestimo = this.repository.findEmprestimoByLivroIsbnAndUsuarioId(ISBN, usuID);
 
-        LocalDateTime novaDataPrazo = emprestimo.getDataprazo().toLocalDateTime().plusDays(7);;
+        if(emprestimo.getQt_renovacoes()==4){
+            throw new RuntimeException("Limite de renovações atingidas.");
+        }
 
+        LocalDateTime novaDataPrazo = emprestimo.getDataprazo().toLocalDateTime().plusDays(7);;
+        emprestimo.setQt_renovacoes(emprestimo.getQt_renovacoes()+1);
         emprestimo.setDataprazo(Timestamp.valueOf(novaDataPrazo));
         return this.repository.save(emprestimo);
 
