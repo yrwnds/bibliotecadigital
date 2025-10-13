@@ -8,6 +8,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     public Usuario findUsuarioByUuid(UUID uuid);
     public void deleteUsuarioByUuid(UUID uuid);
 
-    public Usuario findUsuarioByEmail(String email);
-    public Usuario findUsuarioByMatriculaAndSenha(String matricula, String senha);
+    public Usuario findUsuarioByEmailContainsIgnoreCase(String email);
+    public Usuario findUsuarioByMatricula(String matricula);
 }

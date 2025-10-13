@@ -1,6 +1,7 @@
 package br.csi.bibliotecadigital.controller;
 
 
+import br.csi.bibliotecadigital.model.usuario.DadosUsuario;
 import br.csi.bibliotecadigital.model.usuario.Usuario;
 import br.csi.bibliotecadigital.service.UsuService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,24 +28,19 @@ public class UsuController {
     }
 
     @GetMapping("/listar")
-    public List<Usuario> listar() {
+    public List<DadosUsuario> listar() {
         return this.usuarioService.listar();
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário correspondente ao ID fornecido.")
-    public Usuario usuario(@Parameter(description = "ID do usuário a ser buscado") @PathVariable long id) {
+    public DadosUsuario usuario(@Parameter(description = "ID do usuário a ser buscado") @PathVariable long id) {
         return this.usuarioService.buscarPorId(id);
     }
 
-    @GetMapping("buscarcredentials/{email}")
-    public Usuario buscarporEmail(@PathVariable @Email String email){
+    @GetMapping("buscaremail/{email}")
+    public DadosUsuario buscarporEmail(@PathVariable @Email String email){
         return this.usuarioService.buscarPorEmail(email);
-    }
-
-    @GetMapping("buscarcredentials/{matricula}/{senha}")
-    public Usuario buscarporEmailSenha(@PathVariable String matricula, @PathVariable String senha){
-        return this.usuarioService.buscarPorMateSenha(matricula, senha);
     }
 
     @PostMapping("/print-json")
@@ -55,9 +51,9 @@ public class UsuController {
     @PostMapping()
     @Operation(summary = "Criar um novo usuário", description = "Cria um novo usuário e o adiciona à lista")
     @Transactional
-    public ResponseEntity salvar(@RequestBody @Valid Usuario usuario, UriComponentsBuilder uriBuilder) {
-        this.usuarioService.salvar(usuario);
-        URI uri = uriBuilder.path("/usuarios/{uuid}").buildAndExpand(usuario.getUuid()).toUri();
+    public ResponseEntity cadastrar(@RequestBody @Valid Usuario usuario, UriComponentsBuilder uriBuilder) {
+        this.usuarioService.cadastrar(usuario);
+        URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).body(usuario);
     }
 

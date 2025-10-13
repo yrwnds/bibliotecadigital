@@ -58,6 +58,6 @@ public class Usuario {
 
     @NonNull
     @NotBlank
-    @Schema(description = "ADMIN/USER")
+    @Schema(description = "ROLE_ADMIN/ROLE_USER")
     private String identificador;
 }

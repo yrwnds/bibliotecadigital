@@ -1,12 +1,14 @@
 package br.csi.bibliotecadigital.service;
 
+import br.csi.bibliotecadigital.model.usuario.DadosUsuario;
 import br.csi.bibliotecadigital.model.usuario.Usuario;
 import br.csi.bibliotecadigital.model.usuario.UsuarioRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuService {
@@ -15,16 +17,18 @@ public class UsuService {
         this.repository = repository;
     }
 
-    public void salvar(Usuario usuario) {
+    public void cadastrar(Usuario usuario) {
+        usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
         this.repository.save(usuario);
     }
 
-    public List<Usuario> listar() {
-        return this.repository.findAll();
+    public List<DadosUsuario> listar() {
+        return this.repository.findAll().stream().map(DadosUsuario::new).toList();
     }
 
-    public Usuario buscarPorId(Long id) {
-        return this.repository.findById(id).get();
+    public DadosUsuario buscarPorId(Long id) {
+        Usuario usuario = this.repository.findById(id).get();
+        return new DadosUsuario(usuario);
     }
 
     public void excluir(Long id) {
@@ -42,12 +46,9 @@ public class UsuService {
         this.repository.save(u);
     }
 
-    public Usuario buscarPorEmail(String email) {
-        return this.repository.findUsuarioByEmail(email);
-    }
-
-    public Usuario buscarPorMateSenha(String matricula, String senha) {
-        return this.repository.findUsuarioByMatriculaAndSenha(matricula, senha);
+    public DadosUsuario buscarPorEmail(String email) {
+        Usuario usuario = this.repository.findUsuarioByEmailContainsIgnoreCase(email);
+        return new DadosUsuario(usuario);
     }
 
     public Usuario getUsuarioUuid(String uuid) {
