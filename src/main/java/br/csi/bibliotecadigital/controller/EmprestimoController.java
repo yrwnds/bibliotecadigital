@@ -36,19 +36,14 @@ public class EmprestimoController {
         return this.emprestimoService.buscarPorId(id);
     }
 
-    @GetMapping("/buscar/{usuid}")
+    @GetMapping("/buscar/usuid/{usuid}")
     public List<Emprestimo> buscarUsuId(@PathVariable long usuid){
         return this.emprestimoService.buscarPorUsuarioId(usuid);
     }
 
-    @GetMapping("/buscar/{livroid}")
-    public List<Emprestimo> buscarLivroid(@PathVariable long livroid){
-        return this.emprestimoService.buscarPorLivroId(livroid);
-    }
-
-    @GetMapping("/buscar/{datapego}")
-    public List<Emprestimo> buscarData(@PathVariable String datapego){
-        return this.emprestimoService.buscarPorDatapego(String.valueOf(datapego));
+    @GetMapping("/buscar/livroid/{isbn}")
+    public List<Emprestimo> buscarLivroid(@PathVariable long isbn){
+        return this.emprestimoService.buscarPorLivroId(isbn);
     }
 
     @PostMapping("/print-json")

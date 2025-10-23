@@ -31,12 +31,6 @@ public class EmprestimoService {
         return this.repository.findAll();
     }
 
-    public List<Emprestimo> buscarPorDatapego(String data) {
-        Timestamp dataTimestamp = Timestamp.valueOf(data);
-        System.out.println(dataTimestamp);
-        return this.repository.findEmprestimoByDatapego(dataTimestamp);
-    }
-
     public List<Emprestimo> buscarPorLivroId(long isbn){
         return this.repository.findEmprestimoByLivroIsbn(isbn);
     }
