@@ -27,10 +27,6 @@ public class EmprestimoService {
         this.livroService = livroService;
     }
 
-    public void salvar(Emprestimo emprestimo) {
-        this.repository.save(emprestimo);
-    }
-
     public List<Emprestimo> listar() {
         return this.repository.findAll();
     }
@@ -47,10 +43,6 @@ public class EmprestimoService {
 
     public List<Emprestimo> buscarPorUsuarioId(long id){
         return this.repository.findEmprestimoByUsuarioId(id);
-    }
-
-    public Emprestimo buscarPorUsuarioIdeLivroIsbn(long id, long isbn){
-        return this.repository.findEmprestimoByLivroIsbnAndUsuarioId(id, isbn);
     }
 
     public Emprestimo buscarPorId(Long id) {
@@ -79,8 +71,8 @@ public class EmprestimoService {
 
     @Transactional
     public Emprestimo pegarLivro(Long ISBN, Long usuId){
-        Livro livro = this.livroRepository.findById(usuId).get();
-        Usuario usuario = this.usuarioRepository.findById(ISBN).get();
+        Livro livro = this.livroRepository.findById(ISBN).get();
+        Usuario usuario = this.usuarioRepository.findById(usuId).get();
 
         if(livro.getN_disponivel()==0){
             throw new RuntimeException("Livro nao esta disponivel para pegar emprestado.");
@@ -92,7 +84,7 @@ public class EmprestimoService {
 
         List<Emprestimo> checar = this.repository.findAll();
         for(Emprestimo emprestimo : checar){
-            if(emprestimo.getUsuario().equals(usuario) && emprestimo.getStatus().equals("ATIVO")){
+            if(emprestimo.getUsuario().equals(usuario) && emprestimo.getStatus().equals("ATIVO") && emprestimo.getLivro().getIsbn() == ISBN){
                 throw new RuntimeException("Este usuario ja pegou este livro emprestado.");
             }
         }

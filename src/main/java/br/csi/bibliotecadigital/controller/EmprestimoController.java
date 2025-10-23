@@ -36,17 +36,24 @@ public class EmprestimoController {
         return this.emprestimoService.buscarPorId(id);
     }
 
+    @GetMapping("/buscar/{usuid}")
+    public List<Emprestimo> buscarUsuId(@PathVariable long usuid){
+        return this.emprestimoService.buscarPorUsuarioId(usuid);
+    }
+
+    @GetMapping("/buscar/{livroid}")
+    public List<Emprestimo> buscarLivroid(@PathVariable long livroid){
+        return this.emprestimoService.buscarPorLivroId(livroid);
+    }
+
+    @GetMapping("/buscar/{datapego}")
+    public List<Emprestimo> buscarData(@PathVariable String datapego){
+        return this.emprestimoService.buscarPorDatapego(String.valueOf(datapego));
+    }
+
     @PostMapping("/print-json")
     public void printJson(@RequestBody String json){
         System.out.println(json);
-    }
-
-    @PostMapping()
-    @Transactional
-    public ResponseEntity criardoZero(@RequestBody @Valid Emprestimo emprestimo, UriComponentsBuilder uriBuilder){
-        this.emprestimoService.salvar(emprestimo);
-        URI uri = uriBuilder.path("/emprestimos/{uuid}").buildAndExpand(emprestimo.getUuid()).toUri();
-        return ResponseEntity.created(uri).body(emprestimo);
     }
 
     @PostMapping("/emprestar/{isbn}/{usuid}")
