@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class UsuService {
@@ -54,6 +53,11 @@ public class UsuService {
     public Usuario getUsuarioUuid(String uuid) {
         UUID uuidformatado = UUID.fromString(uuid);
         return this.repository.findUsuarioByUuid(uuidformatado);
+    }
+
+    public DadosUsuario buscarPorMatricula(String matricula){
+        Usuario usuario = this.repository.findUsuarioByMatricula(matricula);
+        return new DadosUsuario(usuario);
     }
 
     public void deletarUUID(String uuid) {

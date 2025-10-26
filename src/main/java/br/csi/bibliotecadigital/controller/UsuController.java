@@ -43,6 +43,11 @@ public class UsuController {
         return this.usuarioService.buscarPorEmail(email);
     }
 
+    @GetMapping("buscarmatricula/{matricula}")
+    public DadosUsuario buscarPorMatricula(@PathVariable String matricula){
+        return this.usuarioService.buscarPorMatricula(matricula);
+    }
+
     @PostMapping("/print-json")
     public void printJson(@RequestBody String json) {
         System.out.println(json);
