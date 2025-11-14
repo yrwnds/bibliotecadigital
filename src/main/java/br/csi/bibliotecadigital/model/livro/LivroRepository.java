@@ -23,6 +23,9 @@ public interface LivroRepository extends JpaRepository<Livro, Long> {
 
     public List<Livro> findLivroByLinguagemContainingIgnoreCase(String linguagem);
 
+    @Query("SELECT l FROM Livro l WHERE LOWER(l.titulo) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(l.autor) LIKE LOWER(CONCAT('%', :keyword, '%')) OR CAST(l.anopublicado AS string) LIKE (CONCAT('%', :keyword, '%'))")
+    List<Livro> findLivroByAnyParam(@Param("keyword") String keyword);
+
     @Query("SELECT l FROM Livro l where l.n_disponivel > 0")
     public List<Livro> findLivroByN_disponivelGreaterThan0();
 }

@@ -24,9 +24,24 @@ public class LivroController {
         this.livroService = livroService;
     }
 
-    @GetMapping("/listar")
-    public List<Livro> listar(){
-        return this.livroService.listar();
+    @GetMapping("/listar/titulo")
+    public List<Livro> listarTitulo(){
+        return this.livroService.listarTitulo();
+    }
+
+    @GetMapping("/listar/autor")
+    public List<Livro> listarAutor(){
+        return this.livroService.listarAutor();
+    }
+
+    @GetMapping("/listar/anopublicado/asc")
+    public List<Livro> listarAnoPublicadoAsc(){
+        return this.livroService.listarAnoAsc();
+    }
+
+    @GetMapping("/listar/anopublicado/desc")
+    public List<Livro> listarAnoPublicadoDesc(){
+        return this.livroService.listarAnoDesc();
     }
 
     @GetMapping("/{id}")
@@ -49,6 +64,11 @@ public class LivroController {
     @GetMapping("/buscar/categoria/{categoria}")
     public List<Livro> buscarPorCategoria(@PathVariable String categoria){
         return this.livroService.getLivroCategoria(categoria);
+    }
+
+    @GetMapping("/buscar/{search}")
+    public List<Livro> buscar(@PathVariable String search){
+        return this.livroService.getLivro(search);
     }
 
     @GetMapping("/buscar/lingua/{linguagem}")

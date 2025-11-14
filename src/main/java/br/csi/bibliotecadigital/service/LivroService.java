@@ -3,6 +3,7 @@ package br.csi.bibliotecadigital.service;
 import br.csi.bibliotecadigital.model.livro.Livro;
 import br.csi.bibliotecadigital.model.livro.LivroRepository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -21,8 +22,20 @@ public class LivroService {
         this.repository.save(livro);
     }
 
-    public List<Livro> listar() {
-        return this.repository.findAll();
+    public List<Livro> listarTitulo() {
+        return this.repository.findAll(Sort.by("titulo").ascending());
+    }
+
+    public List<Livro> listarAutor() {
+        return this.repository.findAll(Sort.by("autor").ascending());
+    }
+
+    public List<Livro> listarAnoAsc() {
+        return this.repository.findAll(Sort.by("anopublicado").ascending());
+    }
+
+    public List<Livro> listarAnoDesc() {
+        return this.repository.findAll(Sort.by("anopublicado").descending());
     }
 
     public Livro buscarPorId(Long id) {
@@ -80,6 +93,10 @@ public class LivroService {
 
     public List<Livro> getLivroDisponiveis(){
         return this.repository.findLivroByN_disponivelGreaterThan0();
+    }
+
+    public List<Livro> getLivro(String search){
+        return this.repository.findLivroByAnyParam(search);
     }
 
     public void deletarUUID(String uuid) {
