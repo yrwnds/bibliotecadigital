@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->
                         auth.requestMatchers(HttpMethod.POST, "/login*").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/usuarios").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                                 .requestMatchers("/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/livros").hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers("/error").permitAll()

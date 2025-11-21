@@ -20,9 +20,9 @@ public class TokenServiceJWT {
         try{
             Algorithm algo = Algorithm.HMAC256("POOW2");
             return JWT.create()
-                    .withIssuer("API Avaliar Projetos")
+                    .withIssuer("API Biblioteca")
                     .withSubject(user.getUsername())
-                    .withClaim("ROLE", user.getAuthorities().stream().toList().get(0).toString())
+                    .withClaim("role", user.getAuthorities().stream().toList().get(0).toString())
                     .withExpiresAt(dataExpiracao())
                     .sign(algo);
         } catch (JWTCreationException e) {
@@ -38,7 +38,7 @@ public class TokenServiceJWT {
         try{
             Algorithm algorithm = Algorithm.HMAC256("POOW2");
             return JWT.require(algorithm)
-                    .withIssuer("API Avaliar Projetos")
+                    .withIssuer("API Biblioteca")
                     .build()
                     .verify(token)
                     .getSubject();
