@@ -107,12 +107,14 @@ public class EmprestimoService {
     @Transactional
     public Emprestimo devolverLivro(Long ISBN, Long usuId){
         Livro livro = this.livroRepository.findById(ISBN).get();
+        Usuario usuario = this.usuarioRepository.findById(usuId).get();
 
         Emprestimo emprestimo = this.repository.findEmprestimoByLivroIsbnAndUsuarioId(ISBN, usuId);
         if(emprestimo.getStatus().equals("INATIVO")){
             throw new RuntimeException("Empréstimo já se encontra inativo.");
         }
 
+        usuario.setQt_livros_emprestados(usuario.getQt_livros_emprestados()-1);
         livro.setN_disponivel(livro.getN_disponivel()+1);
         this.livroService.atualizar(livro);
 

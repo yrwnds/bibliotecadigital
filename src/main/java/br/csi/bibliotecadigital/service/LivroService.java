@@ -19,6 +19,8 @@ public class LivroService {
     }
 
     public void salvar(Livro livro) {
+        System.out.println("dados categoria: " + livro.getCategoria());
+        livro.setN_disponivel(livro.getN_exemplares());
         this.repository.save(livro);
     }
 
