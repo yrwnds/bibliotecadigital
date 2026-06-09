@@ -57,4 +57,6 @@ public class Usuario {
     @NotBlank
     @Schema(description = "ADMIN/USER")
     private String identificador;
+
+    private String imagem_path;
 }

@@ -46,4 +46,8 @@ public class Livro {
     @ManyToOne
     @NonNull
     private Categoria categoria;
+
+    private String imagem_path;
+
+    private String pdf_path;
 }
