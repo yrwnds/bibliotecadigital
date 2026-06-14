@@ -31,6 +31,8 @@ public class EmprestimoService {
         return this.repository.findAll();
     }
 
+    public List<Emprestimo> listarAtivos(){return this.repository.findEmprestimoByAtivo();}
+
     public List<Emprestimo> buscarPorLivroId(long isbn){
         return this.repository.findEmprestimoByLivroIsbn(isbn);
     }

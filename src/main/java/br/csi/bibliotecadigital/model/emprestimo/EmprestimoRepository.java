@@ -16,4 +16,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
 
     @Query("SELECT e FROM Emprestimo e WHERE e.livro.isbn = :Isbn AND e.usuario.id = :usuarioId AND e.status = 'ATIVO'")
     public Emprestimo findEmprestimoByLivroIsbnAndUsuarioId(@Param("Isbn")long Isbn, @Param("usuarioId")long usuarioId);
+
+    @Query("SELECT e FROM Emprestimo e WHERE e.status = 'ATIVO'")
+    List<Emprestimo> findEmprestimoByAtivo();
 }

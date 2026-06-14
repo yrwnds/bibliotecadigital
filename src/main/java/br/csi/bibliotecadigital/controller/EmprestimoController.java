@@ -30,6 +30,9 @@ public class EmprestimoController {
         return this.emprestimoService.listar();
     }
 
+    @GetMapping("/listarativos")
+    public List<Emprestimo> listarativos(){return this.emprestimoService.listarAtivos();}
+
     @GetMapping("/{id}")
     @Operation(summary = "Buscar empréstimo por ID", description = "Retorna um empréstimo correspondente ao ID fornecido.")
     public Emprestimo emprestimo(@PathVariable long id){
